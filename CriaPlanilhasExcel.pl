@@ -73,14 +73,15 @@ sub CriarWorkBook {
 
   # Formata tamanho das colunas
   $WorkSheet->set_column ( 0, 0, 12 );
-  $WorkSheet->set_column ( 1, 2, 40 );
-  $WorkSheet->set_column ( 3, 6, 15 );
+  $WorkSheet->set_column ( 1, 1, 15 );
+  $WorkSheet->set_column ( 2, 3, 40 );
+  $WorkSheet->set_column ( 4, 6, 15 );
 
   # Coloca cabecalhos
   $WorkSheet->write ( "A1", "DATA",    $FormatCabecalho );
-  $WorkSheet->write ( "B1", "NOME",    $FormatCabecalho );
-  $WorkSheet->write ( "C1", "EMPRESA", $FormatCabecalho );
-  $WorkSheet->write ( "D1", "ENTRADA", $FormatCabecalho );
+  $WorkSheet->write ( "B1", "ENTRADA", $FormatCabecalho );
+  $WorkSheet->write ( "C1", "NOME",    $FormatCabecalho );
+  $WorkSheet->write ( "D1", "EMPRESA", $FormatCabecalho );
   $WorkSheet->write ( "E1", "PLACA",   $FormatCabecalho );
   $WorkSheet->write ( "F1", "MODELO",  $FormatCabecalho );
   $WorkSheet->write ( "G1", "SAIDA",   $FormatCabecalho );
@@ -88,9 +89,9 @@ sub CriarWorkBook {
   # Coloca linhas
   for ( my $lin = 1; $lin < 100; $lin++ ) {
     $WorkSheet->write_string ( $lin, 0, $Data, $FormatCenter );
-    $WorkSheet->write_string ( $lin, 1, '', $FormatoLeft );
+    $WorkSheet->write_string ( $lin, 1, '', $FormatCenter );
     $WorkSheet->write_string ( $lin, 2, '', $FormatoLeft );
-    $WorkSheet->write_string ( $lin, 3, '', $FormatCenter );
+    $WorkSheet->write_string ( $lin, 3, '', $FormatoLeft );
     $WorkSheet->write_string ( $lin, 4, '', $FormatoLeft );
     $WorkSheet->write_string ( $lin, 5, '', $FormatoLeft );
     $WorkSheet->write_string ( $lin, 6, '', $FormatCenter ); 
