@@ -39,7 +39,7 @@ sub CriarWorkBook {
   
   # preparar para criar o WorkBook
   my $Pasta   = $MesStr . " " . $Meses[$MesStr];
-  my $Arquivo =  "PLANILHA " . $DiaStr . " " . $Meses[$MesStr] . ".xlsx";
+  my $Arquivo =  "PLANILHA " . $Meses[$MesStr] . " " . $DiaStr .  ".xlsx";
 
   # Entra na pasta e cria planilha
   if ( !( chdir ($Pasta) ) ) {
