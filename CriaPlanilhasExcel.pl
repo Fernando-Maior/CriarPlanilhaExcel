@@ -1,7 +1,10 @@
+#!/usr/bin/perl
+
 use warnings;
 use strict;
 
 use Excel::Writer::XLSX;
+use Getopt::Long;
 
 # Define variaveis globais
 my @Meses = ( 'NONE', 'JANEIRO', 'FEVEREIRO', 'MARCO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO' );
@@ -54,7 +57,7 @@ sub CriarWorkBook {
   my $WorkSheet       = $WorkBook->add_worksheet();
   my $FormatCabecalho = $WorkBook->add_format();
   my $FormatCenter    = $WorkBook->add_format();
-  my $FormatoLeft     = $WorkBook->add_format();
+  my $FormatLeft      = $WorkBook->add_format();
 
   # Define formato dos cabecalhos
   $FormatCabecalho->set_bold();
@@ -64,18 +67,22 @@ sub CriarWorkBook {
   $FormatCabecalho->set_border ( 1 );
 
   # Define formato das colunas com alinhamento left
-  $FormatoLeft->set_border ( 1 );
-  $FormatoLeft->set_align ( 'left' );
+  $FormatLeft->set_border ( 1 );
+  $FormatLeft->set_size( 12 );
+  $FormatLeft->set_bold();
+  $FormatLeft->set_align ( 'left' );
 
   # Define formato das colunas B e C
   $FormatCenter->set_border ( 1 );
+  $FormatCenter->set_size( 12 );
+  $FormatCenter->set_bold();
   $FormatCenter->set_align ( 'center' );
 
   # Formata tamanho das colunas
-  $WorkSheet->set_column ( 0, 0, 12 );
-  $WorkSheet->set_column ( 1, 1, 15 );
-  $WorkSheet->set_column ( 2, 3, 40 );
-  $WorkSheet->set_column ( 4, 6, 15 );
+  $WorkSheet->set_column ( 0, 0, 14 );
+  $WorkSheet->set_column ( 1, 1, 18 );
+  $WorkSheet->set_column ( 2, 3, 48 );
+  $WorkSheet->set_column ( 4, 6, 18 );
 
   # Coloca cabecalhos
   $WorkSheet->write ( "A1", "DATA",    $FormatCabecalho );
@@ -90,10 +97,10 @@ sub CriarWorkBook {
   for ( my $lin = 1; $lin < 100; $lin++ ) {
     $WorkSheet->write_string ( $lin, 0, $Data, $FormatCenter );
     $WorkSheet->write_string ( $lin, 1, '', $FormatCenter );
-    $WorkSheet->write_string ( $lin, 2, '', $FormatoLeft );
-    $WorkSheet->write_string ( $lin, 3, '', $FormatoLeft );
-    $WorkSheet->write_string ( $lin, 4, '', $FormatoLeft );
-    $WorkSheet->write_string ( $lin, 5, '', $FormatoLeft );
+    $WorkSheet->write_string ( $lin, 2, '', $FormatLeft );
+    $WorkSheet->write_string ( $lin, 3, '', $FormatLeft );
+    $WorkSheet->write_string ( $lin, 4, '', $FormatLeft );
+    $WorkSheet->write_string ( $lin, 5, '', $FormatLeft );
     $WorkSheet->write_string ( $lin, 6, '', $FormatCenter ); 
   }
 
@@ -107,7 +114,25 @@ sub CriarWorkBook {
   print "Planilha $Arquivo criada com sucesso.\n";
 }
 
-for ( my $MesDoAno = 1; $MesDoAno <= 12; $MesDoAno++ ) {
+#
+# MAIN ---------------------------------------------------
+#
+
+#
+# Obtem os valores de entrada 
+#
+my $MesInicial = 1;
+my $MesFinal = 12;
+
+GetOptions (
+  'MesInicial=i' => \$MesInicial,
+  'MesFinal=i' => \$MesFinal
+) or die "Erro nos argumentos da linha de comando.\n\n";
+
+#
+# Executa o loop principa de criacao das planilhas
+#
+for ( my $MesDoAno = $MesInicial; $MesDoAno <= $MesFinal; $MesDoAno++ ) {
   
   # Prepara para criar a pasta
   my $MesDaPlanilha = substr ( "000".$MesDoAno, -2 );
