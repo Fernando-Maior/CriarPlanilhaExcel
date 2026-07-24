@@ -7,5 +7,5 @@ You can pass no parameters (script will create sheets from january to december) 
 2. --MesFinal is numeric, between 1 and 12, meaning the last month to be created
 
 ## Dependencies
-use Excel::Writer::XLSX;
-use Getopt::Long;
+- use Excel::Writer::XLSX;
+- use Getopt::Long;
